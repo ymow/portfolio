@@ -1,8 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { personalInfo, heroMetrics } from "@/lib/data";
-import ParticleField from "@/components/d3-visualizations/ParticleField";
+import { personalInfo } from "@/lib/data";
 
 export default function Hero() {
   const scrollToProjects = () => {
@@ -22,90 +21,111 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center px-8 bg-background"
     >
-      {/* Particle Background */}
-      <ParticleField />
-
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background pointer-events-none" />
+      {/* Subtle background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-neutral-50 via-background to-background pointer-events-none opacity-60" />
 
       {/* Content */}
-      <div className="relative z-10 max-w-container mx-auto px-8 text-center">
+      <div className="relative z-10 max-w-4xl mx-auto text-center">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <h1 className="text-6xl md:text-8xl font-bold mb-6">
-            <span className="text-gradient-cyan-pink">{personalInfo.name}</span>
+          {/* Small intro text */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-text-tertiary uppercase tracking-wider text-sm font-medium mb-8"
+          >
+            Product Manager
+          </motion.p>
+
+          {/* Main heading */}
+          <h1 className="heading-xl text-text-primary mb-6">
+            {personalInfo.name}
           </h1>
 
-          <h2 className="text-3xl md:text-4xl font-semibold text-text-primary mb-6">
-            {personalInfo.title}
-          </h2>
-
-          <p className="text-xl md:text-2xl text-text-secondary max-w-4xl mx-auto mb-12 leading-relaxed">
-            {personalInfo.tagline}
+          {/* Tagline */}
+          <p className="body-lg max-w-2xl mx-auto mb-4">
+            10+ years building data-driven products
+          </p>
+          <p className="body-lg max-w-2xl mx-auto mb-12 text-text-tertiary">
+            for enterprise and consumer platforms
           </p>
 
+          {/* Key highlights - minimal */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="flex flex-wrap items-center justify-center gap-6 mb-16 text-sm text-text-tertiary"
+          >
+            <div className="flex items-center gap-2">
+              <div className="w-1.5 h-1.5 rounded-full bg-accent-primary"></div>
+              <span>10+ Years Experience</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-1.5 h-1.5 rounded-full bg-accent-primary"></div>
+              <span>Fortune 500 Clients</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-1.5 h-1.5 rounded-full bg-accent-primary"></div>
+              <span>AI & E-commerce Expertise</span>
+            </div>
+          </motion.div>
+
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-            <motion.button
-              onClick={scrollToProjects}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-accent-primary text-background font-semibold rounded-lg hover:bg-accent-secondary transition-colors duration-200 glow-cyan"
-            >
-              View Projects
-            </motion.button>
-
-            <motion.button
-              onClick={scrollToContact}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 glass text-text-primary font-semibold rounded-lg hover:border-accent-primary transition-colors duration-200"
-            >
-              Contact Me
-            </motion.button>
-          </div>
-
-          {/* Metrics Banner */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto"
+            className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            {heroMetrics.map((metric, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
-                className="glass p-6 rounded-lg"
-              >
-                <div className="text-3xl md:text-4xl font-bold text-accent-primary mb-2">
-                  {metric.value}
-                </div>
-                <div className="text-sm md:text-base text-text-secondary font-medium">
-                  {metric.label}
-                </div>
-              </motion.div>
-            ))}
+            <button
+              onClick={scrollToProjects}
+              className="btn-primary"
+            >
+              View Projects
+            </button>
+
+            <button
+              onClick={scrollToContact}
+              className="btn-secondary"
+            >
+              Get in Touch
+            </button>
           </motion.div>
         </motion.div>
       </div>
 
-      {/* Scroll Indicator */}
+      {/* Minimal scroll indicator */}
       <motion.div
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 1 }}
+        className="absolute bottom-12 left-1/2 transform -translate-x-1/2"
       >
-        <div className="w-6 h-10 border-2 border-accent-primary rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-accent-primary rounded-full mt-2 animate-pulse" />
-        </div>
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="flex flex-col items-center gap-2 text-text-tertiary"
+        >
+          <span className="text-xs uppercase tracking-wider">Scroll</span>
+          <svg
+            className="w-5 h-5"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+          </svg>
+        </motion.div>
       </motion.div>
     </section>
   );
